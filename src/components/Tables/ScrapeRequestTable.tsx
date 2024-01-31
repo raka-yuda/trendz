@@ -6,6 +6,7 @@ import BrandFour from '../images/brand/brand-04.svg';
 import BrandFive from '../images/brand/brand-05.svg';
 import { useEffect } from 'react';
 import { EyeIcon, TrashCanIcon, DownloadIcon } from '../Icons';
+import { FaPlus } from 'react-icons/fa';
 
 export interface IScrapeRequest {
   created_at: string | null;
@@ -195,6 +196,9 @@ const ScrapeRequestTable = ({
                           </button>
                           <button className="hover:text-primary">
                             <DownloadIcon />
+                          </button>
+                          <button className="hover:text-primary">
+                            <FaPlus />
                           </button>
                         </div>
                       </td>
