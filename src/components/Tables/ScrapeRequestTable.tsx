@@ -4,9 +4,11 @@ import BrandTwo from '../images/brand/brand-02.svg';
 import BrandThree from '../images/brand/brand-03.svg';
 import BrandFour from '../images/brand/brand-04.svg';
 import BrandFive from '../images/brand/brand-05.svg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { EyeIcon, TrashCanIcon, DownloadIcon } from '../Icons';
-import { FaPlus } from 'react-icons/fa';
+import { FaAngleLeft, FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa';
+import { BsArrowLeft } from 'react-icons/bs';
+import AddScrapeRequestModal from '../Modals/AddScrapeRequestModal';
 
 export interface IScrapeRequest {
   created_at: string | null;
@@ -61,56 +63,39 @@ const ScrapeRequestTable = ({
   handleAfterPage,
   handleFirstPage,
 }: IScrapeRequestTable) => {
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   return (
     <>
-      <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Latest Request
-        </h4>
+      <AddScrapeRequestModal 
+        visibility={isAddModalVisible}
+        setVisibilityModal={setIsAddModalVisible}
+      />
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="flex justify-between items-center py-6 px-4 md:px-6 xl:px-7.5">
+          <h4 className="text-xl font-semibold text-black dark:text-white">
+            Latest Request
+          </h4>
+          <button 
+            className="hover:text-primary"
+            onClick={() => setIsAddModalVisible(true)}
+          >
+            <FaPlus />
+          </button>
+        </div>
         <div className="max-w-full overflow-x-auto">
-          {/* <div className='flex flex-row justify-end items-end'>
-            <div className="mt-4.5 mb-5.5 grid grid-cols-5 rounded-md border border-stroke p-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F] divide-x">
-              <div className="p-2 rounded-sm flex flex-col items-center justify-center dark:border-strokedark xsm:flex-row hover:cursor-pointer hover:bg-stroke ">
-                <span className="font-semibold text-black dark:text-white">
-                  {'<'}
-                </span>
-              </div>
-              <div className="p-2 rounded-sm flex flex-col items-center justify-center dark:border-strokedark xsm:flex-row hover:cursor-pointer hover:bg-stroke ">
-                <span className="font-semibold text-black dark:text-white text-sm">
-                  1
-                </span>
-              </div>
-              <div className="p-2 rounded-sm flex flex-col items-center justify-center dark:border-strokedark xsm:flex-row hover:cursor-not-allowed">
-                <span className="font-semibold text-black dark:text-white">
-                  ...
-                </span>
-              </div>
-              <div className="p-2 rounded-sm flex flex-col items-center justify-center dark:border-strokedark xsm:flex-row hover:cursor-pointer hover:bg-stroke ">
-                <span className="font-semibold text-black dark:text-white">
-                  3
-                </span>
-              </div>
-              <div className="p-2 rounded-sm flex flex-col items-center justify-center xsm:flex-row hover:cursor-pointer hover:bg-stroke ">
-                <span className="font-semibold text-black dark:text-white">
-                  {'>'}
-                </span>
-              </div>
-            </div>
-          </div> */}
-
           <table className="relative w-full table-auto">
             <thead className="sticky top-0">
               <tr className="bg-gray-2 text-left dark:bg-meta-4">
                 <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                   No
                 </th>
-                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                <th className="py-4 px-4 min-w-[220px] font-medium text-black dark:text-white xl:pl-11">
                   Topic ID
                 </th>
-                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="py-4 px-4 min-w-[150px] font-medium text-black dark:text-white">
                   Status
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                <th className="py-4 px-4 min-w-[120px] font-medium text-black dark:text-white">
                   Tweets Limit
                 </th>
                 <th className="py-4 px-4 font-medium text-black dark:text-white">
@@ -143,18 +128,18 @@ const ScrapeRequestTable = ({
                   return (
                     <tr key={index + 1}>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
+                        <h5 className="text-sm font-medium text-black dark:text-white">
                           {index + 1}
                         </h5>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
+                        <h5 className="text-sm font-medium text-black dark:text-white">
                           {scrapeRequest?.trending_topic?.topic ?? '-'}
                         </h5>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p
-                          className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${badgeRequestStatusColor(
+                          className={`text-sm font-medium inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm ${badgeRequestStatusColor(
                             scrapeRequest.status!,
                           )}`}
                         >
@@ -162,27 +147,27 @@ const ScrapeRequestTable = ({
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
+                        <p className="text-sm font-medium text-black dark:text-white">
                           {scrapeRequest.tweets_limit ?? '-'}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
+                        <p className="text-sm font-medium text-black dark:text-white">
                           {scrapeRequest.metadata ?? '-'}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
+                        <p className="text-sm font-medium text-black dark:text-white">
                           {lastRunningFormattedDate ?? '-'}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
+                        <p className="text-sm font-medium text-black dark:text-white">
                           {scrapeRequest.query ?? '-'}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
+                        <p className="text-sm font-medium text-black dark:text-white">
                           {createdAtFormattedDate ?? '-'}
                         </p>
                       </td>
@@ -196,9 +181,6 @@ const ScrapeRequestTable = ({
                           </button>
                           <button className="hover:text-primary">
                             <DownloadIcon />
-                          </button>
-                          <button className="hover:text-primary">
-                            <FaPlus />
                           </button>
                         </div>
                       </td>
@@ -220,13 +202,13 @@ const ScrapeRequestTable = ({
             </tbody>
           </table>
         </div>
-        <div className="flex justify-end py-4">
+        <div className="flex justify-end py-4 mr-4">
           <div className="grid grid-cols-5 gap-1 items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             <button
               onClick={handlePreviousPage}
-              className="rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
+              className="rounded flex justify-center items-center py-2 px-2 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
             >
-              {'<'}
+              <FaChevronLeft/>
             </button>
             <button
               onClick={handleFirstPage}
@@ -243,7 +225,7 @@ const ScrapeRequestTable = ({
                   : ''
               }`}
             >
-              ...
+              {(currentPage == 1 || currentPage == lastPage) ? '...' : currentPage }
             </button>
             <button
               onClick={handleLastPage}
@@ -255,9 +237,9 @@ const ScrapeRequestTable = ({
             </button>
             <button
               onClick={handleAfterPage}
-              className="rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
+              className="rounded flex justify-center items-center py-2 px-2 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
             >
-              {'>'}
+              <FaChevronRight/>
             </button>
           </div>
         </div>
