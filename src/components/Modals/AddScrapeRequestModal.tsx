@@ -1,244 +1,149 @@
-const AddScrapeRequestModal = () => {
+import { FaPlus, FaTrash } from "react-icons/fa";
+
+const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
+  // const [visibility]
   return (
-    <div
-      className="modal-container fixed z-50 flex top-25 bottom-5 "
-      onClick={(e) => {
-        if (e.target.className === 'modal-container') closeModal();
-      }}
-    >
-      <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
-        <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
-          <div className="w-full flex justify-end">
-            <strong
-              className="text-xl align-center cursor-pointer "
-              onClick={closeModal}
-            >
-              &times;
-            </strong>
-          </div>
-          <form>
-            <div className="grid grid-cols-3 gap-5 justify-normal">
-              <div className="form-group w-full col-span-3">
-                <label
-                  className="mb-3 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="id"
-                >
-                  Bond ID (Input "ALL" to track all bonds with paramaters below)
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  name="id"
-                  onChange={handleChange}
-                  value={formState.id}
-                />
-              </div>
+    <>
+      {visibility && 
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto xl:max-w-3xl sm:max-w-full">
+                <div className="relative p-6 flex-auto">
+                  <div className="flex flex-col gap-9">
+                    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                      <div className="flex justify-between items-center border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+                        <h3 className="font-medium text-black dark:text-white">
+                          Add New Request
+                        </h3>
+                        <button 
+                          className="rotate-45"
+                          type="button"
+                          onClick={() => setVisibilityModal(false)}
+                        >
+                          <FaPlus />
+                        </button>
+                      </div>
+                      <form action="#">
+                        <div className="p-6.5">
+{/* 
+                        topic_id
+                        tweets_limit
+                        status
+                        query
+                         */}
+                          <div className="mb-4.5 md:min-w-[360px] min-w-[200px]">
+                            <label className="mb-2.5 block text-black dark:text-white">
+                              Topic Id
+                            </label>
+                            <div className="relative z-20 bg-transparent dark:bg-form-input">
+                              <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                <option value="">Type your subject</option>
+                                <option value="">USA</option>
+                                <option value="">UK</option>
+                                <option value="">Canada</option>
+                              </select>
+                              <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                                <svg
+                                  className="fill-current"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <g opacity="0.8">
+                                    <path
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
+                                      fill=""
+                                    ></path>
+                                  </g>
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
 
-              <div className="form-group ">
-                <label
-                  className="mb-3 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="para"
-                >
-                  Parameter
-                </label>
-                <div className="relative z-20 w-full rounded border border-stroke p-1.5 pr-8 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-                  <div className="flex flex-wrap items-center"></div>
-                  <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
-                    {formState.para}
-                  </span>
-                  <select
-                    className="absolute top-0 left-0 z-20 h-full w-full bg-transparent opacity-0"
-                    name="para"
-                    onChange={handleChange}
-                    value={formState.para}
-                  >
-                    {fields.map((item: any, idx: number) => (
-                      <option key={idx} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g opacity="0.8">
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
-                          fill="#637381"
-                        ></path>
-                      </g>
-                    </svg>
-                  </span>
+                          <div className="mb-4.5">
+                            <label className="mb-2.5 block text-black dark:text-white">
+                              Tweet Limit
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Select subject"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                            />
+                          </div>
+
+                          <div className="mb-4.5">
+                            <label className="mb-2.5 block text-black dark:text-white">
+                              Additional Tweet Search Query 
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Select subject"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                            />
+                          </div>
+{/* 
+                          <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                            <div className="w-full xl:w-1/2">
+                              <label className="mb-2.5 block text-black dark:text-white">
+                                First name
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="Enter your first name"
+                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                              />
+                            </div>
+
+                            <div className="w-full xl:w-1/2">
+                              <label className="mb-2.5 block text-black dark:text-white">
+                                Last name
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="Enter your last name"
+                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                              />
+                            </div>
+                          </div> */}
+
+
+                          <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <div className="form-group">
-                <label
-                  className="mb-3 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="criterion"
-                >
-                  Criterion
-                </label>
-                <div className="relative z-20 w-full rounded border border-stroke p-1.5 pr-8 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-                  <div className="flex flex-wrap items-center"></div>
-                  <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
-                    {formState.criterion == 0
-                      ? 'goes down by'
-                      : formState.criterion == 1
-                      ? 'goes up by'
-                      : formState.criterion == 2
-                      ? 'is smaller than'
-                      : formState.criterion == 3
-                      ? 'is greater than'
-                      : 'is equal to'}
-                  </span>
-                  <select
-                    className="absolute top-0 left-0 z-20 h-full w-full bg-transparent opacity-0"
-                    name="criterion"
-                    onChange={handleChange}
-                    value={formState.criterion}
+                {/*footer*/}
+                {/* <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setVisibilityModal(false)}
                   >
-                    <option value="0">goes down by</option>
-                    <option value="1">goes up by</option>
-                    {!(formState.para == 'rating') && (
-                      <option value="2">is smaller than</option>
-                    )}
-                    {!(formState.para == 'rating') && (
-                      <option value="3">is greater than</option>
-                    )}
-
-                    <option value="4">is equal to</option>
-                  </select>
-                  <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g opacity="0.8">
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
-                          fill="#637381"
-                        ></path>
-                      </g>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div className="form-group w-full">
-                <label
-                  className="mb-3 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="value"
-                >
-                  Value to give Alert
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  name="value"
-                  onChange={handleChange}
-                  value={formState.value}
-                />
-              </div>
-
-              <div className="form-group">
-                <label
-                  className="mb-3 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
-                  Alert Type
-                </label>
-                <div className="relative z-20 w-full rounded border border-stroke p-1.5 pr-8 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
-                  <div className="flex flex-wrap items-center"></div>
-                  <span
-                    className={`${
-                      formState.type == 0
-                        ? 'bg-[#04b20c]'
-                        : formState.type == 1
-                        ? 'bg-[#eab90f]'
-                        : 'bg-[#e13f32]'
-                    } m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke py-1.5 px-2.5 text-white font-medium dark:border-strokedark`}
+                    Close
+                  </button>
+                  <button
+                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setVisibilityModal(false)}
                   >
-                    {formState.type == 0
-                      ? 'Info'
-                      : formState.type == 1
-                      ? 'Warning'
-                      : 'Alert'}
-                  </span>
-                  <select
-                    className="absolute top-0 left-0 z-20 h-full w-full bg-transparent opacity-0"
-                    name="type"
-                    onChange={handleChange}
-                    value={formState.type}
-                  >
-                    <option value="0">Info</option>
-                    <option value="1">Warning</option>
-                    <option value="2">Alert</option>
-                  </select>
-                  <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g opacity="0.8">
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
-                          fill="#637381"
-                        ></path>
-                      </g>
-                    </svg>
-                  </span>
-                </div>
-              </div>
+                    Save Changes
+                  </button>
+                </div> */}
+              {/* </div> */}
             </div>
-            {errors.filter((item: string) => item.startsWith('INVALID_ID'))
-              .length > 0 && (
-              <>
-                <br />
-                <div className="error">
-                  {errors
-                    .filter((item: string) => item.startsWith('INVALID_ID'))[0]
-                    .replace('INVALID_ID_', '')}{' '}
-                  is not a valid bond
-                </div>
-              </>
-            )}
-            {errors.filter((item: string) => !item.startsWith('INVALID_ID'))
-              .length > 0 && (
-              <div className="error">
-                Please input{' '}
-                {errors
-                  .filter((item: string) => !item.startsWith('INVALID_ID'))
-                  .join(', ')}
-              </div>
-            )}
-
-            <br></br>
-            <button
-              className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+          </div>
+          
+          <div className="opacity-80 fixed inset-0 z-40 bg-black"></div>
+        </>
+      }
+    </>
   );
 };
 
