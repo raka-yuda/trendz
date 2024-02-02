@@ -1,7 +1,58 @@
+import { useState } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa";
+import ScrapeRequestService from "../../services/scrape-request.service";
+import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchScrapeRequests } from "../../actions/scrapeRequest";
 
-const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
-  // const [visibility]
+const AddScrapeRequestModal = ({visibility = false, setVisibilityModal, page, dispatch}) => {
+  let navigate = useNavigate();
+  // const dispatch = useDispatch();
+
+  const [formAddScrapeRequest, setFormScrapeRequest] = useState({
+    topicId: "",
+    tweetsLimit: "",
+    query: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormScrapeRequest((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // topicId
+    // query
+    // tweetsLimit
+
+    const {
+      topicId,
+      tweetsLimit,
+      query,
+    } = formAddScrapeRequest;
+    
+    if (topicId && tweetsLimit) {
+      ScrapeRequestService.postScrapeRequests({
+        topicId,
+        tweetsLimit: parseInt(tweetsLimit),
+        query,
+      }).then(async () => {
+        await dispatch(fetchScrapeRequests({page: page}) as any).then((res) => {
+          console.log('fetchScrapeRequests: ', res)
+        });
+        toast.success('Success adding scrape request!');
+        setVisibilityModal(false);
+      }).catch((e: Error) => {
+        console.log(e)
+        toast.error('Failed adding scrape request!')
+      });
+    } else {
+      toast.error('Please fill the data!');
+    }
+  };
+
   return (
     <>
       {visibility && 
@@ -23,7 +74,7 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
                           <FaPlus />
                         </button>
                       </div>
-                      <form action="#">
+                      <form onSubmit={handleSubmit}>
                         <div className="p-6.5">
 {/* 
                         topic_id
@@ -36,7 +87,18 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
                               Topic Id
                             </label>
                             <div className="relative z-20 bg-transparent dark:bg-form-input">
-                              <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                              <input
+                                name="topicId"
+                                type="text"
+                                placeholder="Fill topic id"
+                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                value={formAddScrapeRequest.topicId}
+                                onChange={handleChange}
+                                // onChange={(e) => {
+                                //   console.log(e.target)
+                                // }}
+                              />
+                              {/* <select className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
                                 <option value="">Type your subject</option>
                                 <option value="">USA</option>
                                 <option value="">UK</option>
@@ -60,7 +122,7 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
                                     ></path>
                                   </g>
                                 </svg>
-                              </span>
+                              </span> */}
                             </div>
                           </div>
 
@@ -69,9 +131,12 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
                               Tweet Limit
                             </label>
                             <input
+                              name="tweetsLimit"
                               type="text"
-                              placeholder="Select subject"
+                              placeholder="Fill tweet limit"
                               className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                              value={formAddScrapeRequest.tweetsLimit}
+                              onChange={handleChange}
                             />
                           </div>
 
@@ -80,38 +145,19 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
                               Additional Tweet Search Query 
                             </label>
                             <input
+                              name="query"
                               type="text"
-                              placeholder="Select subject"
+                              placeholder="Fill query"
                               className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                              value={formAddScrapeRequest.query}
+                              onChange={handleChange}
                             />
                           </div>
-{/* 
-                          <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                            <div className="w-full xl:w-1/2">
-                              <label className="mb-2.5 block text-black dark:text-white">
-                                First name
-                              </label>
-                              <input
-                                type="text"
-                                placeholder="Enter your first name"
-                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                              />
-                            </div>
-
-                            <div className="w-full xl:w-1/2">
-                              <label className="mb-2.5 block text-black dark:text-white">
-                                Last name
-                              </label>
-                              <input
-                                type="text"
-                                placeholder="Enter your last name"
-                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                              />
-                            </div>
-                          </div> */}
-
-
-                          <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray">
+                          <button 
+                            className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray"
+                            type="submit"
+                            // onSubmit={handleSubmit}
+                          >
                             Submit
                           </button>
                         </div>
@@ -119,24 +165,6 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal}) => {
                     </div>
                   </div>
                 </div>
-                {/*footer*/}
-                {/* <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setVisibilityModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setVisibilityModal(false)}
-                  >
-                    Save Changes
-                  </button>
-                </div> */}
-              {/* </div> */}
             </div>
           </div>
           
