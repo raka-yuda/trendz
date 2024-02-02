@@ -30,6 +30,7 @@ export interface IScrapeRequestTable {
   handleLastPage: React.MouseEventHandler<HTMLButtonElement>;
   handleAfterPage: React.MouseEventHandler<HTMLButtonElement>;
   handleFirstPage: React.MouseEventHandler<HTMLButtonElement>;
+  handleShowAddModal: React.MouseEventHandler<HTMLButtonElement>;
 }
 const badgeRequestStatusColor = (status: string = 'IN_QUEUE') => {
   // success
@@ -62,14 +63,17 @@ const ScrapeRequestTable = ({
   handleLastPage,
   handleAfterPage,
   handleFirstPage,
+  handleShowAddModal,
 }: IScrapeRequestTable) => {
-  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  // const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+
+  // TODO: Add filter section with param search by name, filter by status, filter by date with reference https://dribbble.com/shots/3208058-Dashboard-Filter
   return (
     <>
-      <AddScrapeRequestModal 
+      {/* <AddScrapeRequestModal 
         visibility={isAddModalVisible}
         setVisibilityModal={setIsAddModalVisible}
-      />
+      /> */}
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex justify-between items-center py-6 px-4 md:px-6 xl:px-7.5">
           <h4 className="text-xl font-semibold text-black dark:text-white">
@@ -77,7 +81,8 @@ const ScrapeRequestTable = ({
           </h4>
           <button 
             className="hover:text-primary"
-            onClick={() => setIsAddModalVisible(true)}
+            onClick={handleShowAddModal}
+            // () => setIsAddModalVisible(true)
           >
             <FaPlus />
           </button>
@@ -221,7 +226,7 @@ const ScrapeRequestTable = ({
             <button
               className={`rounded py-1 px-3 text-base font-medium text-black  dark:text-white ${
                 currentPage != 1 && currentPage != lastPage
-                  ? 'bg-white shadow-card'
+                  ? 'bg-white shadow-card dark:hover:bg-boxdark dark:bg-boxdark'
                   : ''
               }`}
             >
