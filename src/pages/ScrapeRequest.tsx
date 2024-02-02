@@ -12,6 +12,7 @@ import {
 import Breadcrumb from '../components/Breadcrumb';
 import ScrapeRequestTable from '../components/Tables/ScrapeRequestTable';
 import toast from 'react-hot-toast';
+import AddScrapeRequestModal from '../components/Modals/AddScrapeRequestModal';
 
 function useQuery() {
   const { search } = useLocation();
@@ -34,6 +35,7 @@ const ScrapeRequest = () => {
 
   const scrapeRequestState = useSelector((state: RootState) => state.scrapeRequest);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const message = useSelector((state: RootState) => state.message);
@@ -51,25 +53,15 @@ const ScrapeRequest = () => {
 
   useEffect(() => {
     dispatch(fetchScrapeRequests({page: page}) as any)
-    .then((res: any) => {
-      setScrapeRequest(res)
-    })
-    .catch((e: Error) => {
-      console.log(e)
-    });
-  }, [page])
+      .then((res: any) => {
+        setScrapeRequest(res)
+      })
+      .catch((e: Error) => {
+        console.log(e)
+      });
+  }, [dispatch, page])
 
   const [scrapeRequest, setScrapeRequest] = useState<any>(null)
-  // const [page, ]
-
-
-  // // useEffect(() => {
-  // //   console.log("query all: ", query)
-  // //   console.log("query: ", query.get("page"))
-  // //   console.log("query: ", query.get("color"))
-  // // })
-
-  let navigate = useNavigate();
 
   const handleMovePages = (page) => {
     setScrapeRequest(null)
@@ -80,10 +72,18 @@ const ScrapeRequest = () => {
     console.log('Scrape Request Rendered..')
   }, [page])
 
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+
   return (
     <>
       <Breadcrumb pageName="Scrape Request" />
       <div className="flex flex-col gap-10">
+        <AddScrapeRequestModal 
+          visibility={isAddModalVisible}
+          setVisibilityModal={setIsAddModalVisible}
+          page={page}
+          dispatch={dispatch}
+        />
         <ScrapeRequestTable 
           currentPage={scrapeRequest?.currentPage}
           totalPage={scrapeRequest?.totalPages}
@@ -106,6 +106,7 @@ const ScrapeRequest = () => {
             }
           }}
           data={scrapeRequest?.items}
+          handleShowAddModal={() => setIsAddModalVisible(true)}
         />
       </div>
     </>
