@@ -13,6 +13,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import ScrapeRequestTable from '../components/Tables/ScrapeRequestTable';
 import toast from 'react-hot-toast';
 import AddScrapeRequestModal from '../components/Modals/AddScrapeRequestModal';
+import DeleteScrapeRequestModal from '../components/Modals/DeleteScrapeRequestModal';
 
 function useQuery() {
   const { search } = useLocation();
@@ -73,6 +74,7 @@ const ScrapeRequest = () => {
   }, [page])
 
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   return (
     <>
@@ -81,6 +83,12 @@ const ScrapeRequest = () => {
         <AddScrapeRequestModal 
           visibility={isAddModalVisible}
           setVisibilityModal={setIsAddModalVisible}
+          page={page}
+          dispatch={dispatch}
+        />
+        <DeleteScrapeRequestModal 
+          visibility={isDeleteModalVisible}
+          setVisibilityModal={setIsDeleteModalVisible}
           page={page}
           dispatch={dispatch}
         />
@@ -107,6 +115,10 @@ const ScrapeRequest = () => {
           }}
           data={scrapeRequest?.items}
           handleShowAddModal={() => setIsAddModalVisible(true)}
+          handleShowDeleteModal={(id: any) => {
+            // console.log(`Deleting reqeuest id: ${id}`)
+            setIsDeleteModalVisible(true)
+          }}
         />
       </div>
     </>
