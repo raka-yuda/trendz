@@ -150,8 +150,8 @@ const TrendsTable = ({
             </button>
             <button
               onClick={handleFirstPage}
-              className={`rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark ${
-                currentPage == 1 ? 'bg-white shadow-card' : ''
+              className={`rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
+                currentPage == 1 ? 'bg-white shadow-card dark:bg-boxdark' : ''
               }`}
             >
               1
@@ -168,7 +168,7 @@ const TrendsTable = ({
             <button
               onClick={handleLastPage}
               className={`rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
-                currentPage == lastPage ? 'bg-white shadow-card' : ''
+                currentPage == lastPage ? 'bg-white shadow-card dark:bg-boxdark' : ''
               }`}
             >
               {(lastPage == 1 ? '-' : lastPage) ?? '-'}
