@@ -37,9 +37,19 @@ const postScrapeRequests = ({
   });
 };
 
+const deleteScrapeRequests = ({
+  requestId
+}) => {
+  return axios.delete(`${API_PATH}`, {
+    params: requestId,
+    headers: authHeader()
+  });
+};
+
 const scrapeRequestService = {
   fetchScrapeRequests,
-  postScrapeRequests
+  postScrapeRequests,
+  deleteScrapeRequests
 };
 
 export default scrapeRequestService;
