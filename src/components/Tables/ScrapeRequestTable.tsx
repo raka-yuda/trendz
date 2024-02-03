@@ -31,6 +31,7 @@ export interface IScrapeRequestTable {
   handleAfterPage: React.MouseEventHandler<HTMLButtonElement>;
   handleFirstPage: React.MouseEventHandler<HTMLButtonElement>;
   handleShowAddModal: React.MouseEventHandler<HTMLButtonElement>;
+  handleShowDeleteModal: any;
 }
 const badgeRequestStatusColor = (status: string = 'IN_QUEUE') => {
   // success
@@ -64,6 +65,7 @@ const ScrapeRequestTable = ({
   handleAfterPage,
   handleFirstPage,
   handleShowAddModal,
+  handleShowDeleteModal,
 }: IScrapeRequestTable) => {
   // const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
@@ -144,7 +146,7 @@ const ScrapeRequestTable = ({
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p
-                          className={`text-sm font-medium inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm ${badgeRequestStatusColor(
+                          className={`text-sm font-medium inline-flex rounded-full bg-opacity-10 py-1 px-3 ${badgeRequestStatusColor(
                             scrapeRequest.status!,
                           )}`}
                         >
@@ -181,7 +183,10 @@ const ScrapeRequestTable = ({
                           <button className="hover:text-primary">
                             <EyeIcon />
                           </button>
-                          <button className="hover:text-primary">
+                          <button 
+                            className="hover:text-primary"
+                            onClick={handleShowDeleteModal}
+                          >
                             <TrashCanIcon />
                           </button>
                           <button className="hover:text-primary">
