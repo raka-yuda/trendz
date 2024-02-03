@@ -6,6 +6,7 @@ import BrandFour from '../images/brand/brand-04.svg';
 import BrandFive from '../images/brand/brand-05.svg';
 import { useEffect } from 'react';
 import { EyeIcon, TrashCanIcon, DownloadIcon } from '../Icons';
+import { FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa';
 
 export interface ITrendsTable {
   data: Record<string, any>[];
@@ -50,10 +51,12 @@ const TrendsTable = ({
 }: ITrendsTable) => {
   return (
     <>
-      <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Latest Request
-        </h4>
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="flex justify-between items-center py-6 px-4 md:px-6 xl:px-7.5">
+          <h4 className="text-xl font-semibold text-black dark:text-white">
+            Latest Request
+          </h4>
+        </div>
         <div className="max-w-full overflow-x-auto">
           <table className="relative w-full table-auto">
             <thead className="sticky top-0">
@@ -87,22 +90,22 @@ const TrendsTable = ({
                   return (
                     <tr key={index + 1}>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
+                        <h5 className="text-sm font-medium text-black dark:text-white">
                           {index + 1}
                         </h5>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
+                        <h5 className="text-sm font-medium text-black dark:text-white">
                           {trend?.id ?? '-'}
                         </h5>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <h5 className="font-medium text-black dark:text-white">
+                        <h5 className="text-sm font-medium text-black dark:text-white">
                           {trend.topic ?? '-'}
                         </h5>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
+                        <p className="text-sm font-medium text-black dark:text-white">
                           {formattedDate ?? '-'}
                         </p>
                       </td>
@@ -137,13 +140,13 @@ const TrendsTable = ({
             </tbody>
           </table>
         </div>
-        <div className="flex justify-end py-4">
+        <div className="flex justify-end py-4 mr-4">
           <div className="grid grid-cols-5 gap-1 items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             <button
               onClick={handlePreviousPage}
-              className="rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
+              className="rounded flex justify-center items-center py-2 px-2 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
             >
-              {'<'}
+              <FaChevronLeft/>
             </button>
             <button
               onClick={handleFirstPage}
@@ -154,13 +157,13 @@ const TrendsTable = ({
               1
             </button>
             <button
-              className={`rounded py-1 px-3 text-base font-medium text-black dark:text-white  ${
+              className={`rounded py-1 px-3 text-base font-medium text-black  dark:text-white ${
                 currentPage != 1 && currentPage != lastPage
-                  ? 'bg-white shadow-card'
+                  ? 'bg-white shadow-card dark:hover:bg-boxdark dark:bg-boxdark'
                   : ''
               }`}
             >
-              ...
+              {(currentPage == 1 || currentPage == lastPage) ? '...' : currentPage }
             </button>
             <button
               onClick={handleLastPage}
@@ -172,9 +175,9 @@ const TrendsTable = ({
             </button>
             <button
               onClick={handleAfterPage}
-              className="rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
+              className="rounded flex justify-center items-center py-2 px-2 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark bg-white shadow-card"
             >
-              {'>'}
+              <FaChevronRight/>
             </button>
           </div>
         </div>
