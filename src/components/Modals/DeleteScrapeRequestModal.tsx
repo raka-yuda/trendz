@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchScrapeRequests } from "../../actions/scrapeRequest";
 
-const DeleteScrapeRequestModal = ({visibility = false, setVisibilityModal, page, dispatch}) => {
+const DeleteScrapeRequestModal = ({visibility = false, setVisibilityModal, page, dispatch, scrapeRequestId}) => {
   let navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -24,14 +24,15 @@ const DeleteScrapeRequestModal = ({visibility = false, setVisibilityModal, page,
     // topicId
     // query
     // tweetsLimit
-
-    const {
-      requestId,
-    } = formDeleteScrapeRequest;
+    console.log(`Deleting scrape request with id: ${scrapeRequestId}`)
+    // setVisibilityModal(false);
+    // const {
+    //   requestId,
+    // } = formDeleteScrapeRequest;
     
-    if (requestId) {
+    if (scrapeRequestId) {
       ScrapeRequestService.deleteScrapeRequests({
-        requestId: parseInt(requestId),
+        requestId: parseInt(scrapeRequestId),
       }).then(async () => {
         await dispatch(fetchScrapeRequests({page: page}) as any).then((res) => {
           console.log('fetchScrapeRequests: ', res)

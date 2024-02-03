@@ -32,6 +32,7 @@ export interface IScrapeRequestTable {
   handleFirstPage: React.MouseEventHandler<HTMLButtonElement>;
   handleShowAddModal: React.MouseEventHandler<HTMLButtonElement>;
   handleShowDeleteModal: any;
+  handleDelete: any;
 }
 const badgeRequestStatusColor = (status: string = 'IN_QUEUE') => {
   // success
@@ -66,6 +67,7 @@ const ScrapeRequestTable = ({
   handleFirstPage,
   handleShowAddModal,
   handleShowDeleteModal,
+  handleDelete
 }: IScrapeRequestTable) => {
   // const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
@@ -185,7 +187,7 @@ const ScrapeRequestTable = ({
                           </button>
                           <button 
                             className="hover:text-primary"
-                            onClick={handleShowDeleteModal}
+                            onClick={() => handleDelete(scrapeRequest?.id)}
                           >
                             <TrashCanIcon />
                           </button>
@@ -222,8 +224,8 @@ const ScrapeRequestTable = ({
             </button>
             <button
               onClick={handleFirstPage}
-              className={`rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark dark:bg-boxdark ${
-                currentPage == 1 ? 'bg-white shadow-card' : ''
+              className={`rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
+                currentPage == 1 ? 'bg-white shadow-card dark:bg-boxdark' : ''
               }`}
             >
               1
@@ -240,7 +242,7 @@ const ScrapeRequestTable = ({
             <button
               onClick={handleLastPage}
               className={`rounded py-1 px-3 text-base font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
-                currentPage == lastPage ? 'bg-white shadow-card' : ''
+                currentPage == lastPage ? 'bg-white shadow-card dark:bg-boxdark' : ''
               }`}
             >
               {(lastPage == 1 ? '-' : lastPage) ?? '-'}

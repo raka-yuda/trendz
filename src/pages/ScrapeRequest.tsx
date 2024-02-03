@@ -75,6 +75,14 @@ const ScrapeRequest = () => {
 
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [scrapeRequestIdToDelete, setScrapeRequestIdToDelete] = useState(null);
+
+
+  const handleDelete = (scrapeRequestId) => {
+    // Set the ID and show the modal
+    setScrapeRequestIdToDelete(scrapeRequestId);
+    setIsDeleteModalVisible(true);
+  }
 
   return (
     <>
@@ -91,34 +99,36 @@ const ScrapeRequest = () => {
           setVisibilityModal={setIsDeleteModalVisible}
           page={page}
           dispatch={dispatch}
+          scrapeRequestId={scrapeRequestIdToDelete}
         />
         <ScrapeRequestTable 
-          currentPage={scrapeRequest?.currentPage}
-          totalPage={scrapeRequest?.totalPages}
+          currentPage={(scrapeRequestState as any)?.scrapeRequest?.currentPage}
+          totalPage={(scrapeRequestState as any)?.scrapeRequest?.totalPages}
           handlePreviousPage={() => {
-            if (scrapeRequest?.currentPage > 1) {
-              handleMovePages(parseInt(scrapeRequest?.currentPage) - 1)
+            if ((scrapeRequestState as any)?.scrapeRequest?.currentPage > 1) {
+              handleMovePages(parseInt((scrapeRequestState as any)?.scrapeRequest?.currentPage) - 1)
             }
           }}
           handleFirstPage={() => {
-            if (scrapeRequest?.currentPage != 1) {
+            if ((scrapeRequestState as any)?.scrapeRequest?.currentPage != 1) {
               handleMovePages(1)
             }
           }}
           handleLastPage={() => {
-            handleMovePages(scrapeRequest?.totalPages)
+            handleMovePages((scrapeRequestState as any)?.scrapeRequest?.totalPages)
           }}
           handleAfterPage={() => {
-            if (scrapeRequest?.currentPage < scrapeRequest?.totalPages) {
-              handleMovePages(parseInt(scrapeRequest?.currentPage) + 1)
+            if ((scrapeRequestState as any)?.scrapeRequest?.currentPage < (scrapeRequestState as any)?.scrapeRequest?.totalPages) {
+              handleMovePages(parseInt((scrapeRequestState as any)?.scrapeRequest?.currentPage) + 1)
             }
           }}
-          data={scrapeRequest?.items}
+          data={(scrapeRequestState as any)?.scrapeRequest?.items}
           handleShowAddModal={() => setIsAddModalVisible(true)}
           handleShowDeleteModal={(id: any) => {
             // console.log(`Deleting reqeuest id: ${id}`)
             setIsDeleteModalVisible(true)
           }}
+          handleDelete={handleDelete}
         />
       </div>
     </>
