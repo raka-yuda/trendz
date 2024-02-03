@@ -33,7 +33,7 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal, page, di
       query,
     } = formAddScrapeRequest;
     
-    if (topicId && tweetsLimit) {
+    if (topicId && tweetsLimit && query) {
       ScrapeRequestService.postScrapeRequests({
         topicId,
         tweetsLimit: parseInt(tweetsLimit),
@@ -45,7 +45,7 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal, page, di
         toast.success('Success adding scrape request!');
         setVisibilityModal(false);
       }).catch((e: Error) => {
-        console.log(e)
+        console.log(`Error: ${e.message}`)
         toast.error('Failed adding scrape request!')
       });
     } else {
@@ -76,12 +76,6 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal, page, di
                       </div>
                       <form onSubmit={handleSubmit}>
                         <div className="p-6.5">
-{/* 
-                        topic_id
-                        tweets_limit
-                        status
-                        query
-                         */}
                           <div className="mb-4.5 md:min-w-[360px] min-w-[200px]">
                             <label className="mb-2.5 block text-black dark:text-white">
                               Topic Id
