@@ -150,7 +150,10 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
         {(state.data && state.data.length > 0) && state.data.map((trend, index) => {
           return (<div key={index} className="w-full px-8 sm:w-1/2">
             <div className="flex w-full items-center">
-              <span className={`!bg-[${colors[index]}] mr-2 block h-3 w-full max-w-3 rounded-full `}></span>
+              <span 
+                style={{backgroundColor: trend?.color}}
+                className={`bg-[${trend?.color}] mr-2 block h-3 w-full max-w-3 rounded-full`}>  
+              </span>
               <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
                 <span>{trend?.sentiment}</span>
                 <span>{trend?.percentage}</span>
@@ -158,9 +161,10 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
           </div>
         </div>)
         })}
+
         {/* <div className="w-full px-8 sm:w-1/2">
           <div className="flex w-full items-center">
-            <span className="!bg-[#FFA7AA] mr-2 block h-3 w-full max-w-3 rounded-full"></span>
+            <span className="!bg-[#10B981] mr-2 block h-3 w-full max-w-3 rounded-full"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Desktop </span>
               <span> 65% </span>
@@ -169,13 +173,14 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
         </div>
         <div className="w-full px-8 sm:w-1/2">
           <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#6577F3]"></span>
+            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#375E83]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Tablet </span>
               <span> 34% </span>
             </p>
           </div>
         </div> */}
+        
       </div>
     </div>
   );
