@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../images/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { TableIcon } from './Icons';
-import { FaChartLine } from "react-icons/fa";
+import { FaChartArea, FaChartLine, FaChartPie, FaListAlt, FaPoll, FaTable, FaTwitter, FaTwitterSquare } from "react-icons/fa";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -706,7 +706,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname.includes('scrape-request') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                  <TableIcon />
+                  <FaListAlt />
                   Scrape Request
                 </NavLink>
               </li>
@@ -717,7 +717,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname.includes('trends') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                  <TableIcon />
+                  <FaPoll />
                   Trends
                 </NavLink>
               </li>
@@ -728,7 +728,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname.includes('tweets') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                  <TableIcon />
+                  <FaTwitterSquare />
                   Tweets
                 </NavLink>
               </li>
@@ -739,7 +739,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname.includes('charts') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                  <TableIcon />
+                  {/* <TableIcon /> */}
+                  <FaChartArea />
                   Charts
                 </NavLink>
               </li>
