@@ -39,9 +39,10 @@ const DeleteScrapeRequestModal = ({visibility = false, setVisibilityModal, page,
         });
         toast.success('Success delete scrape request!');
         setVisibilityModal(false);
-      }).catch((e: Error) => {
-        console.log(`Error: ${e.message}`)
-        toast.error('Failed delete scrape request!')
+      }).catch((e: any) => {
+        console.log(`Error Delete: `, e)
+        toast.error(e?.response?.data?.message || 'Failed delete scrape request!')
+        setVisibilityModal(false);
       });
     } else {
       toast.error('Please fill the data!');

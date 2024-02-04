@@ -22,47 +22,23 @@ function useQuery() {
 }
 
 const ScrapeRequest = () => {
-  const dataScrape = [{
-    created_at: null,
-    id: 1,
-    tweets_limit: null,
-    topic_id: null,
-    status: null,
-    last_running: null,
-    query: null,
-    metadata: null,
-    updated_at: null,
-  }]
-
-  const scrapeRequestState = useSelector((state: RootState) => state.scrapeRequest);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const message = useSelector((state: RootState) => state.message);
-
+  const query = useQuery();
   const notify = (message: string) => toast.error(message);
-
-  useEffect(() => {
-    const latestMessage = (message as Record<string, string>)?.message
-    if (latestMessage) notify((message as Record<string, string>)?.message)
-    
-  }, [message, dispatch])
-
-  let query = useQuery();
   const page = parseInt(query.get("page") ?? '1');
 
-  useEffect(() => {
-    dispatch(fetchScrapeRequests({page: page}) as any)
-      .then((res: any) => {
-        setScrapeRequest(res)
-      })
-      .catch((e: Error) => {
-        console.log(e)
-      });
-  }, [dispatch, page])
+  const scrapeRequestState = useSelector((state: RootState) => state.scrapeRequest);
+  const message = useSelector((state: RootState) => state.message);
 
   const [scrapeRequest, setScrapeRequest] = useState<any>(null)
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [scrapeRequestIdToDelete, setScrapeRequestIdToDelete] = useState(null);
+  const [pageConfig, setPageConfig] = useState({
+    page,
+    limit: 10
+  });
 
   const handleMovePages = (page) => {
     setScrapeRequest(null)
@@ -70,13 +46,26 @@ const ScrapeRequest = () => {
   }
 
   useEffect(() => {
+    const latestMessage = (message as Record<string, string>)?.message
+    if (latestMessage) notify((message as Record<string, string>)?.message)
+    
+  }, [message, dispatch])
+
+  useEffect(() => {
+    dispatch(fetchScrapeRequests({page: page}) as any)
+      .then((res: any) => {
+        console.log(res)
+        setScrapeRequest(res)
+      })
+      .catch((e: Error) => {
+        console.log(e)
+      });
+  }, [dispatch, page])
+
+
+  useEffect(() => {
     console.log('Scrape Request Rendered..')
   }, [page])
-
-  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [scrapeRequestIdToDelete, setScrapeRequestIdToDelete] = useState(null);
-
 
   const handleDelete = (scrapeRequestId) => {
     // Set the ID and show the modal
@@ -122,6 +111,8 @@ const ScrapeRequest = () => {
               handleMovePages(parseInt((scrapeRequestState as any)?.scrapeRequest?.currentPage) + 1)
             }
           }}
+          limit={pageConfig.limit}
+          totalData={(scrapeRequestState as any)?.scrapeRequest?.totalItems}
           data={(scrapeRequestState as any)?.scrapeRequest?.items}
           handleShowAddModal={() => setIsAddModalVisible(true)}
           handleShowDeleteModal={(id: any) => {
