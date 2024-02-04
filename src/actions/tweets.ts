@@ -6,6 +6,8 @@ import {
   FETCH_TWEETS_CHART_SENTIMENT_FAILED,
   FETCH_TWEETS_CHART_TRENDS_SUCCESS,
   FETCH_TWEETS_CHART_TRENDS_FAILED,
+  FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_SUCCESS,
+  FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_FAILED,
 } from "./types";
 
 import TweetsService from "../services/tweets.service";
@@ -17,7 +19,7 @@ interface ITweets {
 }
 
 interface IFetchTweetsChart {
-  type?: 'GROUPING_BY_SENTIMENT' | 'COUNT_TRENDING_TOPIC_APPEARANCES';
+  type?: 'GROUPING_BY_SENTIMENT' | 'COUNT_TRENDING_TOPIC_APPEARANCES' | 'COUNT_SCRAPE_SENTIMENT_PER_DAY';
   requestId?: string;
   requestDate?: string;
 }
@@ -61,9 +63,6 @@ export const fetchTweetsChartSentiment = ({requestId, type = 'GROUPING_BY_SENTIM
     (response) => {
       const tweetChartData = response?.data?.data
 
-      console.log("requestId: ", requestId)
-      console.log("response: ", response)
-      console.log("tweetChartData: ", tweetChartData)
       dispatch({
         type: FETCH_TWEETS_CHART_SENTIMENT_SUCCESS,
         payload: tweetChartData,
@@ -115,6 +114,40 @@ export const fetchTweetsChartTrends = ({requestDate, type = 'COUNT_TRENDING_TOPI
 
       dispatch({
         type: FETCH_TWEETS_CHART_TRENDS_FAILED,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(message);
+    }
+  );
+};
+
+export const fetchTweetsChartScrapeSentiment = ({requestDate, type = 'COUNT_SCRAPE_SENTIMENT_PER_DAY'}: IFetchTweetsChart) => (dispatch: Dispatch) => {
+  return TweetsService.fetchTweetsChart({requestDate, type}).then(
+    (response) => {
+      const tweetChartData = response?.data
+
+      dispatch({
+        type: FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_SUCCESS,
+        payload: tweetChartData,
+      });
+
+      return Promise.resolve(tweetChartData);
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_FAILED,
       });
 
       dispatch({

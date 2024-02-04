@@ -5,18 +5,20 @@ interface IFetchScrapeRequests {
   topicId?: number;
   page?: number;
   limit?: number;
+  status?: string;
 }
 
 const API_URL = (import.meta as any).env.VITE_TRENDZ_API_URL || "http://localhost:8090";
 const API_PATH = `${API_URL}/api/scrape-request`;
 
 
-const fetchScrapeRequests = ({page = 1, limit = 10, topicId}: IFetchScrapeRequests) => {
+const fetchScrapeRequests = ({page = 1, limit = 10, topicId, status}: IFetchScrapeRequests) => {
   return axios.get(API_PATH, {
     params: {
       topicId,
       page,
       limit,
+      status
     }
   });
 };
@@ -40,8 +42,8 @@ const postScrapeRequests = ({
 const deleteScrapeRequests = ({
   requestId
 }) => {
-  return axios.delete(`${API_PATH}`, {
-    params: requestId,
+  return axios.delete(`${API_PATH}/${requestId}`, {
+    // params: requestId,
     headers: authHeader()
   });
 };

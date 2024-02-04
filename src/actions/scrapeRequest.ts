@@ -11,10 +11,21 @@ interface IFetchScrapeRequests {
   topicId?: number;
   page?: number;
   limit?: number;
+  status?: string;
 }
 
-export const fetchScrapeRequests = ({topicId, page, limit}: IFetchScrapeRequests) => (dispatch: Dispatch) => {
-  return ScrapeRequestService.fetchScrapeRequests({topicId, page, limit}).then(
+export const fetchScrapeRequests = ({
+  topicId, 
+  page, 
+  limit,
+  status
+}: IFetchScrapeRequests) => (dispatch: Dispatch) => {
+  return ScrapeRequestService.fetchScrapeRequests({
+    topicId, 
+    page, 
+    limit,
+    status
+  }).then(
     (response) => {
       const scrapeRequestData = response?.data?.data
 

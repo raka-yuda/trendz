@@ -6,7 +6,7 @@ interface IFetchTweets {
 }
 
 interface IFetchTweetsChart {
-  type?: 'GROUPING_BY_SENTIMENT' | 'COUNT_TRENDING_TOPIC_APPEARANCES';
+  type?: 'GROUPING_BY_SENTIMENT' | 'COUNT_TRENDING_TOPIC_APPEARANCES' | 'COUNT_SCRAPE_SENTIMENT_PER_DAY';
   requestId?: string;
   requestDate?: string;
 }
