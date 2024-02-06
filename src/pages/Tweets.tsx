@@ -15,20 +15,31 @@ function useQuery() {
 }
 
 const Tweets = () => {
+  const query = useQuery();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const page = parseInt(query.get("page") ?? '1');
+
+  const [tweets, setTweets] = useState<any>(null)
+  const [pageConfig, setPageConfig] = useState({
+    page,
+    limit: 10
+  })
 
   const message = useSelector((state: RootState) => state.message);
 
   const notify = (message: string) => toast.error(message);
+
+  const handleMovePages = (page) => {
+    setTweets(null)
+    navigate(`/tweets?page=${page}`);
+  }
 
   useEffect(() => {
     const latestMessage = (message as Record<string, string>)?.message
     if (latestMessage) notify((message as Record<string, string>)?.message)
     
   }, [message, dispatch])
-
-  let query = useQuery();
-  const page = parseInt(query.get("page") ?? '1');
 
   useEffect(() => {
     dispatch(fetchTweets({page: page}) as any)
@@ -40,15 +51,6 @@ const Tweets = () => {
       console.log(e)
     });
   }, [page])
-
-  const [tweets, setTweets] = useState<any>(null)
-
-  let navigate = useNavigate();
-
-  const handleMovePages = (page) => {
-    setTweets(null)
-    navigate(`/tweets?page=${page}`);
-  }
 
   return (
     <>
@@ -77,6 +79,8 @@ const Tweets = () => {
             }
           }}
           data={tweets?.items}
+          limit={pageConfig.limit}
+          totalData={(tweets as any)?.totalItems}
         />
       </div>
     </>

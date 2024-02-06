@@ -12,6 +12,8 @@ export interface ITweetsTable {
   data: Record<string, any>[];
   currentPage: number;
   totalPage: number;
+  limit: number;
+  totalData: number;
   handlePreviousPage: React.MouseEventHandler<HTMLButtonElement>;
   handleLastPage: React.MouseEventHandler<HTMLButtonElement>;
   handleAfterPage: React.MouseEventHandler<HTMLButtonElement>;
@@ -44,6 +46,8 @@ const TweetsTable = ({
   data,
   currentPage,
   totalPage: lastPage,
+  limit,
+  totalData,
   handlePreviousPage,
   handleLastPage,
   handleAfterPage,
@@ -164,7 +168,12 @@ const TweetsTable = ({
             </tbody>
           </table>
         </div>
-        <div className="flex justify-end py-4 mr-4">
+        <div className="flex justify-between py-4 mr-4">
+          <div className="flex justify-end py-4 ml-6">
+            <p className="text-sm font-medium text-black dark:text-white">
+              Showing {limit} from {totalData} data
+            </p>
+          </div>
           <div className="grid grid-cols-5 gap-1 items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             <button
               onClick={handlePreviousPage}

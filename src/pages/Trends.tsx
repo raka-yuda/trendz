@@ -15,11 +15,25 @@ function useQuery() {
 }
 
 const Trends = () => {
+  const query = useQuery();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const page = parseInt(query.get("page") ?? '1');
+
+  const [trends, setTrends] = useState<any>(null)
+  const [pageConfig, setPageConfig] = useState({
+    page,
+    limit: 10
+  })
 
   const message = useSelector((state: RootState) => state.message);
 
   const notify = (message: string) => toast.error(message);
+
+  const handleMovePages = (page) => {
+    setTrends(null)
+    navigate(`/trends?page=${page}`);
+  }
 
   useEffect(() => {
     const latestMessage = (message as Record<string, string>)?.message
@@ -27,8 +41,6 @@ const Trends = () => {
     
   }, [message, dispatch])
 
-  let query = useQuery();
-  const page = parseInt(query.get("page") ?? '1');
 
   useEffect(() => {
     dispatch(fetchTrends({page: page}) as any)
@@ -39,15 +51,6 @@ const Trends = () => {
       console.log(e)
     });
   }, [page])
-
-  const [trends, setTrends] = useState<any>(null)
-
-  let navigate = useNavigate();
-
-  const handleMovePages = (page) => {
-    setTrends(null)
-    navigate(`/trends?page=${page}`);
-  }
 
   return (
     <>
@@ -76,6 +79,8 @@ const Trends = () => {
             }
           }}
           data={trends?.items}
+          limit={pageConfig.limit}
+          totalData={(trends as any)?.totalItems}
         />
       </div>
     </>
