@@ -3,11 +3,41 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../images/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { TableIcon } from './Icons';
-import { FaChartArea, FaChartLine, FaChartPie, FaListAlt, FaPoll, FaTable, FaTwitter, FaTwitterSquare } from "react-icons/fa";
+import { FaCaretRight, FaChartArea, FaChartLine, FaChartPie, FaListAlt, FaPoll, FaTable, FaTwitter, FaTwitterSquare } from "react-icons/fa";
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
+}
+
+const NavItemComponent = ({currentPath, path, title, icon}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  return <NavLink
+    to={`/${path}`}
+    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+      currentPath.includes(path) && 'bg-graydark dark:bg-meta-4'
+    }`}
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+  >
+    {icon}
+    {title}
+    {/* {(!currentPath.includes(path) && isHovered) &&
+      <div className={`animate-fade-right animate-ease-in-out animate-duration-300`}>
+        <FaCaretRight />
+      </div>
+    } */}
+    {(!currentPath.includes(path)) ? 
+      (isHovered) ? 
+      <div className={`animate-fade-right animate-ease-in-out animate-duration-300`}>
+        <FaCaretRight />
+      </div> : ''
+        : 
+      <div className={``}>
+        <FaCaretRight />
+      </div>
+    }
+  </NavLink>
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
@@ -56,6 +86,39 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector('body')?.classList.remove('sidebar-expanded');
     }
   }, [sidebarExpanded]);
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const listPath = [
+    {
+      path: "scrape-request",
+      title: "Scrape Request",
+      icon: <FaListAlt />,
+    },
+    {
+      path: "trends",
+      title: "Trends",
+      icon: <FaPoll />,
+    },
+    {
+      path: "tweets",
+      title: "Tweets",
+      icon: <FaTwitterSquare />,
+    },
+    {
+      path: "charts",
+      title: "Charts",
+      icon: <FaChartArea />,
+    },
+  ];
+
+  // const navItemComponent = NavItemComponent({
+  //   currentPath: pathname,
+  //   path: path,
+  //   setIsHovered: setIsHovered,
+  //   isHovered: isHovered,
+  //   icon: "",
+  // })
 
   return (
     <aside
@@ -699,51 +762,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              <li>
-                <NavLink
-                  to="/scrape-request"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('scrape-request') && 'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  <FaListAlt />
-                  Scrape Request
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/trends"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('trends') && 'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  <FaPoll />
-                  Trends
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/tweets"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('tweets') && 'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  <FaTwitterSquare />
-                  Tweets
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/charts"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('charts') && 'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  {/* <TableIcon /> */}
-                  <FaChartArea />
-                  Charts
-                </NavLink>
-              </li>
+              {listPath && listPath.map((path, id) => {
+                return <NavItemComponent
+                  key={`${path}-${id}`}
+                  currentPath={pathname}
+                  path={path.path}
+                  title={path.title}
+                  icon={path.icon}
+                />
+              })}
             </ul>
           </div>
         </nav>
