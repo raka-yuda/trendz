@@ -1,8 +1,6 @@
 import { ApexOptions } from 'apexcharts';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-// import EventBus from "./common/utils";
-import Utils from "../../common/Utils";
 
 interface ChartThreeState {
   series: number[];
@@ -49,7 +47,7 @@ const options: ApexOptions = {
       breakpoint: 640,
       options: {
         chart: {
-          width: 200,
+          width: 320,
         },
       },
     },
@@ -94,7 +92,7 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
           </h5>
         </div>
         <div>
-          <div className="relative z-20 inline-block">
+          <div className="relative z-9 inline-block">
             <div className='flex flex-row items-center'>
               <p>{`Topic:`}</p>
               {/* <p>{`Topic: ${topic ?? '-'}`}</p> */}
@@ -103,7 +101,7 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
                 value={topicValue}
                 name="sentiment-chart-topic-select"
                 id=""
-                className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
+                className="relative z-10 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
               > 
                 {(optionsTopic && optionsTopic.length > 0) && optionsTopic.map((option: any) => {
                   return <option value={option?.value}>{option?.label}</option>
@@ -180,7 +178,7 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
             </p>
           </div>
         </div> */}
-        
+
       </div>
     </div>
   );
