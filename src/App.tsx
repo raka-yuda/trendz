@@ -2,10 +2,10 @@ import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Login from './pages/Authentication/Login';
+import Dashboard from './pages/Dashboard';
 import Loader from './common/Loader';
 import routes from './routes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ import { clearMessage } from './actions/message';
 import { logout } from './actions/auth';
 
 import EventBus from "./common/EventBus";
+
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -82,7 +83,7 @@ function App() {
         <Route path="/auth/signup" element={<SignUp />} />
         <Route path="/auth/login" element={<Login />} />
         <Route element={<DefaultLayout />}>
-          <Route index element={<ECommerce />} />
+          <Route index element={<Dashboard />} />
           {routes.map((routes, index) => {
             const { path, component: Component } = routes;
             return (
