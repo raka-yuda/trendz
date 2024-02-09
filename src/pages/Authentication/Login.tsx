@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import { login } from "../../actions/auth";
 import Form from "react-validation/build/form";
+import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 
 // import Skeleton from "react-loading-skeleton";
 
@@ -60,7 +61,7 @@ const Login = () => {
 
       dispatch(login(username, password) as any)
         .then((res: any) => {
-          navigate("/charts");
+          navigate("/");
           window.location.reload();
         })
         .catch((e: Error) => {
@@ -77,16 +78,19 @@ const Login = () => {
   }, [])
 
   if (isLoggedIn) {
-    return <Navigate to="/charts" />;
+    return <Navigate to="/" />;
   }
 
   return (
     <>
       {/* <MainHead title="Login" /> */}
       {/* bg-image: https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80 */}
-      <div className="w-full h-screen bg-gray-800">
+      <div className="w-full h-screen bg-gray-800 dark:bg-boxdark-2 ">
         <div className="container mx-auto h-full ">
           <div className="flex flex-row w-full h-full">
+            <div className="absolute left-0 top-0 m-4">
+              <DarkModeSwitcher />
+            </div>
             <div className="flex justify-center items-center p-4 xl:max-w-[40%] w-full md:basis-1/2 md:ml-auto">
               <div className="flex flex-col justify-between p-6 py-12 w-full bg-white rounded-md shadow-sm md:p-12">
                 <div>
@@ -111,7 +115,7 @@ const Login = () => {
                             value={username}
                             onChange={onChangeUsername}
                             placeholder="Enter your username"
-                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
                           />
 
                           <span className="absolute right-4 top-4">
@@ -143,7 +147,7 @@ const Login = () => {
                             value={password}
                             onChange={onChangePassword}
                             placeholder="6+ Characters, 1 Capital letter"
-                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
                           />
 
                           <span className="absolute right-4 top-4">

@@ -4,6 +4,9 @@ import Logo from '../images/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { TableIcon } from './Icons';
 import { FaCaretRight, FaChartArea, FaChartLine, FaChartPie, FaListAlt, FaPoll, FaTable, FaTwitter, FaTwitterSquare } from "react-icons/fa";
+import { BsFillBarChartLineFill } from 'react-icons/bs';
+import { TiChartLineOutline } from "react-icons/ti";
+
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -137,10 +140,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             className='flex items-center justify-center w-full'
           >
           </div> */}
-          <FaChartLine
+          <TiChartLineOutline
+            className={'fill-white'}
             size={36}
           />
-          <p className='text-lg ml-4 text-white font-semibold'> Trendz</p>
+          <p className='text-lg ml-2 text-white font-semibold'>Trendz</p>
         </NavLink>
 
         <button
