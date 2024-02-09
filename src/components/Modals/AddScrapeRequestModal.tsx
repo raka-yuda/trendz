@@ -23,10 +23,6 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal, page, di
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // topicId
-    // query
-    // tweetsLimit
-
     const {
       topicId,
       tweetsLimit,

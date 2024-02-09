@@ -39,6 +39,9 @@ const ScrapeRequest = () => {
     page,
     limit: 10
   });
+  const [filterOptions, setFilterOptions] = useState({
+    status: ""
+  })
 
   const handleMovePages = (page) => {
     setScrapeRequest(null)
@@ -52,7 +55,10 @@ const ScrapeRequest = () => {
   }, [message, dispatch])
 
   useEffect(() => {
-    dispatch(fetchScrapeRequests({page: page}) as any)
+    dispatch(fetchScrapeRequests({
+      page: page,
+      status: filterOptions?.status
+    }) as any)
       .then((res: any) => {
         console.log(res)
         setScrapeRequest(res)
@@ -60,17 +66,19 @@ const ScrapeRequest = () => {
       .catch((e: Error) => {
         console.log(e)
       });
-  }, [dispatch, page])
-
-
-  useEffect(() => {
-    console.log('Scrape Request Rendered..')
-  }, [page])
+  }, [dispatch, page, filterOptions])
 
   const handleDelete = (scrapeRequestId) => {
     // Set the ID and show the modal
     setScrapeRequestIdToDelete(scrapeRequestId);
     setIsDeleteModalVisible(true);
+  };
+
+  const handleFilter = (option) => {
+    setFilterOptions({
+      ...filterOptions,
+      ...option
+    });
   }
 
   return (
@@ -120,6 +128,7 @@ const ScrapeRequest = () => {
             setIsDeleteModalVisible(true)
           }}
           handleDelete={handleDelete}
+          handleFilter={handleFilter}
         />
       </div>
     </>
