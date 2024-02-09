@@ -142,12 +142,12 @@ const TweetsTable = ({
                           <button className="hover:text-primary">
                             <EyeIcon />
                           </button>
-                          <button className="hover:text-primary">
+                          {/* <button className="hover:text-primary">
                             <TrashCanIcon />
                           </button>
                           <button className="hover:text-primary">
                             <DownloadIcon />
-                          </button>
+                          </button> */}
                         </div>
                       </td>
                     </tr>

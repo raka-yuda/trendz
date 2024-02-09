@@ -15,7 +15,6 @@ import SentimentChartThree from '../components/Charts/SentimentChartThree.tsx';
 
 
 const Charts = () => {
-
   const dispatch = useDispatch();
 
   const [chartSentimentData, setChartSentimentData] = useState([])
@@ -86,10 +85,6 @@ const Charts = () => {
 
         setChartScrapeSentimentData(transformedData)
       }
-      // setScrapeRequest(res);
-      // if(res?.items && res?.items.length > 0) {
-      //   setRequest(res?.items[0]?.id);
-      // }
     })
     .catch((e: Error) => {
       console.log("Error: ", e.message)
@@ -118,20 +113,9 @@ const Charts = () => {
           })}
           topic={Utils.getUniqueNamesOfObjectArray(chartSentimentData, 'topic')[0]}
           handleChangeTopic={(e) => {
-            console.log('Select: ', e.target.value)
             setRequest(e.target.value)
           }}
           topicValue={((request && scrapeRequest) ? String(request) : String(1)) ?? ''}
-          // optionsTopic={[
-          //   {
-          //     value: '1',
-          //     label: '1'
-          //   },
-          //   {
-          //     value: '2',
-          //     label: '2'
-          //   },
-          // ]}
           optionsTopic={scrapeRequest?.items.map((request: any) => ({
             value: request?.id,
             label: `${request?.trending_topic?.topic} - ${request?.id}`
@@ -144,9 +128,11 @@ const Charts = () => {
           />
         }
         {/* <ChartTwo /> */}
-        <div className="col-span-12">
+
+        {/* <div className="col-span-12">
           <SentimentChartThree />
-        </div>
+        </div> */}
+
         {/* <ChartFour />
         <ChartThree /> */}
       </div>
