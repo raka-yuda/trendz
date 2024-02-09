@@ -8,6 +8,8 @@ import {
   FETCH_TWEETS_CHART_TRENDS_FAILED,
   FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_SUCCESS,
   FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_FAILED,
+  FETCH_TWEETS_CHART_DASHBOARD_DATA_SUCCESS,
+  FETCH_TWEETS_CHART_DASHBOARD_DATA_FAILED,
 } from "./types";
 
 import TweetsService from "../services/tweets.service";
@@ -19,7 +21,7 @@ interface ITweets {
 }
 
 interface IFetchTweetsChart {
-  type?: 'GROUPING_BY_SENTIMENT' | 'COUNT_TRENDING_TOPIC_APPEARANCES' | 'COUNT_SCRAPE_SENTIMENT_PER_DAY';
+  type?: 'GROUPING_BY_SENTIMENT' | 'COUNT_TRENDING_TOPIC_APPEARANCES' | 'COUNT_SCRAPE_SENTIMENT_PER_DAY' | 'DASHBOARD_DATA';
   requestId?: string;
   requestDate?: string;
 }
@@ -148,6 +150,40 @@ export const fetchTweetsChartScrapeSentiment = ({requestDate, type = 'COUNT_SCRA
 
       dispatch({
         type: FETCH_TWEETS_CHART_SCRAPE_SENTIMENT_FAILED,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject(message);
+    }
+  );
+};
+
+export const fetchTweetsChartDashboardData = ({requestDate, type = 'DASHBOARD_DATA'}: IFetchTweetsChart) => (dispatch: Dispatch) => {
+  return TweetsService.fetchTweetsChart({requestDate, type}).then(
+    (response) => {
+      const tweetChartData = response?.data?.data;
+
+      dispatch({
+        type: FETCH_TWEETS_CHART_DASHBOARD_DATA_SUCCESS,
+        payload: tweetChartData,
+      });
+
+      return Promise.resolve(tweetChartData);
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: FETCH_TWEETS_CHART_DASHBOARD_DATA_FAILED,
       });
 
       dispatch({
