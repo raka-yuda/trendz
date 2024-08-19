@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const DownloadIcon = ({ size = 18 }) => {
   return (
     <svg
@@ -18,6 +20,10 @@ const DownloadIcon = ({ size = 18 }) => {
       />
     </svg>
   );
+};
+
+DownloadIcon.propTypes = {
+  size: PropTypes.number,
 };
 
 export default DownloadIcon;

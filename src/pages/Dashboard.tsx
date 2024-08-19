@@ -166,7 +166,8 @@ const Dashboard = () => {
         {(chartDashboardData && (chartDashboardData as any).length > 0) && 
           (chartDashboardData as any)
             .map((dashboardData) => remapChartDashboardData(dashboardData))
-            .map((data) => <CardItemDashboard 
+            .map((data, id: number) => <CardItemDashboard
+              key={id} 
               customClassBgIcon={data.bgIcon}
               icon={data.icon} 
               value={data.count} 

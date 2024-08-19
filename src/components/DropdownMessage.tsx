@@ -39,7 +39,10 @@ const DropdownMessage = () => {
   });
 
   return (
-    <li className="relative" x-data="{ dropdownOpen: false, notifying: true }">
+    <li 
+      className="relative" 
+      // x-data="{ dropdownOpen: false, notifying: true }"
+    >
       <Link
         ref={trigger}
         onClick={() => setDropdownOpen(!dropdownOpen)}

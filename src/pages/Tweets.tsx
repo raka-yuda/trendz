@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
 import TableThree from '../components/TableThree';
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../reducers';
 import toast from 'react-hot-toast';
@@ -53,7 +53,7 @@ const Tweets = () => {
   }, [page])
 
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="Tweets" />
 
       <div className="flex flex-col gap-10">
@@ -83,7 +83,7 @@ const Tweets = () => {
           totalData={(tweets as any)?.totalItems}
         />
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

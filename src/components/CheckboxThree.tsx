@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const CheckboxThree = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   return (
-    <div>
+    <React.Fragment>
       <label
         htmlFor="checkboxLabelThree"
         className="flex cursor-pointer select-none items-center"
@@ -46,7 +46,7 @@ const CheckboxThree = () => {
         </div>
         Checkbox Text
       </label>
-    </div>
+    </React.Fragment>
   );
 };
 

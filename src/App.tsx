@@ -31,7 +31,7 @@ function App() {
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
-  let location = useLocation();
+  const location = useLocation();
 
   // const [port, setPort] = useState('')
   // useEffect(() => {

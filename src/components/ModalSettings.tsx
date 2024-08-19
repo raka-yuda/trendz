@@ -23,7 +23,7 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
       setErrors([]);
       return true;
     } else {
-      let errorFields = [];
+      const errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
         console.log(key);
         console.log(value);

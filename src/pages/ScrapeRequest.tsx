@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { fetchScrapeRequests } from '../actions/scrapeRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../reducers';
@@ -82,7 +82,7 @@ const ScrapeRequest = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="Scrape Request" />
       <div className="flex flex-col gap-10">
         <AddScrapeRequestModal 
@@ -131,7 +131,7 @@ const ScrapeRequest = () => {
           handleFilter={handleFilter}
         />
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

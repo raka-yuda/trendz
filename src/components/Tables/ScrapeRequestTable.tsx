@@ -4,7 +4,7 @@ import BrandTwo from '../images/brand/brand-02.svg';
 import BrandThree from '../images/brand/brand-03.svg';
 import BrandFour from '../images/brand/brand-04.svg';
 import BrandFive from '../images/brand/brand-05.svg';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { EyeIcon, TrashCanIcon, DownloadIcon } from '../Icons';
 import { FaAngleLeft, FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight, FaEllipsisH, FaPlus, FaUndo } from 'react-icons/fa';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -118,7 +118,7 @@ const ScrapeRequestTable = ({
 
   // TODO: Add filter section with param search by name, filter by status, filter by date with reference https://dribbble.com/shots/3208058-Dashboard-Filter
   return (
-    <>
+    <React.Fragment>
       {/* <AddScrapeRequestModal 
         visibility={isAddModalVisible}
         setVisibilityModal={setIsAddModalVisible}
@@ -318,7 +318,7 @@ const ScrapeRequestTable = ({
                 onChange={handleStatusChange}
               >
                 <option value="">Pick Status</option>
-                {listStatusOption && listStatusOption.map((status) => <option value={status}>{status}</option>)}
+                {listStatusOption && listStatusOption.map((status, id: number) => <option value={status} key={id}>{status}</option>)}
                 {/* <option value="">Pick Status</option>
                 <option value="">USA</option>
                 <option value="">UK</option>
@@ -542,7 +542,7 @@ const ScrapeRequestTable = ({
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

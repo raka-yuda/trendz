@@ -3,10 +3,10 @@ import userThree from '../images/user/user-03.png';
 import fireToast from '../hooks/fireToast';
 import { Table } from "../components/TableSettings";
 import { Modal } from "../components/ModalSettings";
-import { useState,useEffect } from "react";
+import React, { useState,useEffect } from "react";
 const Settings = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [rows, setRows] = useState(localStorage.getItem("alertSettings")?JSON.parse(localStorage.getItem("alertSettings")):[]);
+  const [rows, setRows] = useState(localStorage.getItem("alertSettings") ? JSON.parse(localStorage.getItem("alertSettings") || '{}') : []);
   useEffect(() => {
     // storing input name
     localStorage.setItem("alertSettings", JSON.stringify(rows));
@@ -36,7 +36,7 @@ const Settings = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="mx-auto max-w-270">
         
         <Breadcrumb pageName="Settings" />
@@ -353,7 +353,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

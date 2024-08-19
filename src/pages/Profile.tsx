@@ -1,10 +1,11 @@
+import React from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
 
 const Profile = () => {
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="Profile" />
 
       <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -279,7 +280,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

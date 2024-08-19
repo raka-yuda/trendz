@@ -4,7 +4,7 @@ import BrandTwo from '../images/brand/brand-02.svg';
 import BrandThree from '../images/brand/brand-03.svg';
 import BrandFour from '../images/brand/brand-04.svg';
 import BrandFive from '../images/brand/brand-05.svg';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { EyeIcon, TrashCanIcon, DownloadIcon } from '../Icons';
 import { FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa';
 
@@ -54,7 +54,7 @@ const TweetsTable = ({
   handleFirstPage,
 }: ITweetsTable) => {
   return (
-    <>
+    <React.Fragment>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex justify-between items-center py-6 px-4 md:px-6 xl:px-7.5">
           <h4 className="text-xl font-semibold text-black dark:text-white">
@@ -215,7 +215,7 @@ const TweetsTable = ({
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

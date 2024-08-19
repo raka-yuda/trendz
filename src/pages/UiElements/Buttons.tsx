@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import Breadcrumb from '../../components/Breadcrumb';
+import React from 'react';
 
 const Buttons = () => {
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="Buttons" />
 
       {/* <!-- Normal Button Items --> */}
@@ -464,7 +465,7 @@ const Buttons = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

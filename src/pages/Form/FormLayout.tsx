@@ -1,8 +1,9 @@
+import React from 'react';
 import Breadcrumb from '../../components/Breadcrumb';
 
 const FormLayout = () => {
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="FormLayout" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
@@ -250,7 +251,7 @@ const FormLayout = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

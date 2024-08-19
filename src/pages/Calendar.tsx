@@ -1,8 +1,9 @@
+import React from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 
 const Calendar = () => {
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="Calendar" />
 
       {/* <!-- ====== Calendar Section Start ====== --> */}
@@ -266,7 +267,7 @@ const Calendar = () => {
         </table>
       </div>
       {/* <!-- ====== Calendar Section End ====== --> */}
-    </>
+    </React.Fragment>
   );
 };
 

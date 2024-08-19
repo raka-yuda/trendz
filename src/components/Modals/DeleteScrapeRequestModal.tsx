@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { fetchScrapeRequests } from "../../actions/scrapeRequest";
 
 const DeleteScrapeRequestModal = ({visibility = false, setVisibilityModal, page, dispatch, scrapeRequestId}) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   const [formDeleteScrapeRequest, setFormScrapeRequest] = useState({

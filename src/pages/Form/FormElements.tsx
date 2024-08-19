@@ -1,3 +1,4 @@
+import React from 'react';
 import Breadcrumb from '../../components/Breadcrumb';
 import CheckboxFive from '../../components/CheckboxFive';
 import CheckboxFour from '../../components/CheckboxFour';
@@ -11,7 +12,7 @@ import SwitcherTwo from '../../components/SwitcherTwo';
 
 const FormElements = () => {
   return (
-    <>
+    <React.Fragment>
       <Breadcrumb pageName="FormElements" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
@@ -347,7 +348,7 @@ const FormElements = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

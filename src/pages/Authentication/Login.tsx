@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 // };
 
 const Login = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const form = useRef<HTMLFormElement | null>(null);
   const checkBtn = useRef<HTMLButtonElement>();
@@ -82,7 +82,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       {/* <MainHead title="Login" /> */}
       {/* bg-image: https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80 */}
       <div className="w-full h-screen bg-gray-800 dark:bg-boxdark-2 ">
@@ -195,7 +195,7 @@ const Login = () => {
                           </span>
                         </label> */}
                         <a href="#" className="text-sm text-blue-600 ml-auto hover:underline">
-                          You're not registered yet?
+                          {`You&apos;re not registered yet?`}
                         </a>
                       </div>
                     </div>
@@ -206,7 +206,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

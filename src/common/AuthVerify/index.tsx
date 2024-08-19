@@ -10,7 +10,7 @@ const parseJwt = (token: string) => {
 };
 
 const AuthVerify = (props: Record<any, any>) => {
-  let location = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || '{}');

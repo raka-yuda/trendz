@@ -103,8 +103,8 @@ const SentimentChart = ({series, labels, data, topic, handleChangeTopic, options
                 id=""
                 className="relative z-10 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
               > 
-                {(optionsTopic && optionsTopic.length > 0) && optionsTopic.map((option: any) => {
-                  return <option value={option?.value}>{option?.label}</option>
+                {(optionsTopic && optionsTopic.length > 0) && optionsTopic.map((option: any, id: number) => {
+                  return <option value={option?.value} key={id}>{option?.label}</option>
                 })}
                 {/* <option value="Monthly">Monthly</option>
                 <option value="Yearly">Yearly</option> */}

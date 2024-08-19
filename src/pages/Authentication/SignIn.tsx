@@ -2,7 +2,7 @@ import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RootState } from '../../reducers'
 
 import Form from "react-validation/build/form";
@@ -13,10 +13,9 @@ import { login } from "../../actions/auth";
 import toast from 'react-hot-toast';
 
 const SignIn = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const form = useRef<HTMLFormElement | null>(null);
-  const checkBtn = useRef<HTMLButtonElement>();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -81,7 +80,7 @@ const SignIn = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -363,7 +362,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 
