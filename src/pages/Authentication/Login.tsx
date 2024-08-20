@@ -195,7 +195,7 @@ const Login = () => {
                           </span>
                         </label> */}
                         <a href="#" className="text-sm text-blue-600 ml-auto hover:underline">
-                          {`You&apos;re not registered yet?`}
+                          You&apos;re not registered yet?
                         </a>
                       </div>
                     </div>
