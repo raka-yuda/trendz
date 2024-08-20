@@ -8,6 +8,8 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "noEmit": true, 
   },
   "typeRoots": [
     "../node_modules/@types",
