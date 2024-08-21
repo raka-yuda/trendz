@@ -92,7 +92,9 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(fetchTweetsChartSentiment({requestId: ((request && scrapeRequest) ? String(request) : String(1)) ?? ''}) as any)
       .then((res: any) => {
-        setChartSentimentData(res)
+        if (res && res?.length > 0) {
+          setChartSentimentData(res)
+        }
       })
       .catch((e: Error) => {
         console.log(e)
@@ -104,9 +106,9 @@ const Dashboard = () => {
       status: 'FINISHED'
     }) as any)
     .then((res: any) => {
-      setScrapeRequest(res);
       if(res?.items && res?.items.length > 0) {
         setRequest(res?.items[0]?.id);
+        setScrapeRequest(res);
       }
     })
     .catch((e: Error) => {
@@ -183,41 +185,43 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-
-      <SentimentChart
-          series={chartSentimentData.map((data: any) => parseInt(data?.count))}
-          labels={chartSentimentData.map((data: any) => data?.sentiment)}
-          data={chartSentimentData.map((data: any, index) => {
-            const arrCount = chartSentimentData.map((data: any) => parseInt(data?.count))
-            const totalCount = arrCount.reduce((partialSum, a) => partialSum + a, 0);
-            const colors = ['#10B981', '#375E83', '#259AE6', '#FFA70B', '#FFA700', '#FFA7AA']
-            return {
-              sentiment: data?.sentiment,
-              percentage: `${((data?.count / totalCount) * 100).toFixed(2)}%`,
-              color: (index < colors.length - 1) ? colors[index] : colors[0]
-            }
-          })}
-          topic={utils.getUniqueNamesOfObjectArray(chartSentimentData, 'topic')[0]}
-          handleChangeTopic={(e) => {
-            console.log('Select: ', e.target.value)
-            setRequest(e.target.value)
-          }}
-          topicValue={((request && scrapeRequest) ? String(request) : String(1)) ?? ''}
-          // optionsTopic={[
-          //   {
-          //     value: '1',
-          //     label: '1'
-          //   },
-          //   {
-          //     value: '2',
-          //     label: '2'
-          //   },
-          // ]}
-          optionsTopic={scrapeRequest?.items.map((request: any) => ({
-            value: request?.id,
-            label: `${request?.trending_topic?.topic} - ${request?.id}`
-          }))}
-        />
+      
+      {(chartSentimentData && (chartSentimentData as any).length > 0) && 
+        <SentimentChart
+            series={chartSentimentData.map((data: any) => parseInt(data?.count))}
+            labels={chartSentimentData.map((data: any) => data?.sentiment)}
+            data={chartSentimentData.map((data: any, index) => {
+              const arrCount = chartSentimentData.map((data: any) => parseInt(data?.count))
+              const totalCount = arrCount.reduce((partialSum, a) => partialSum + a, 0);
+              const colors = ['#10B981', '#375E83', '#259AE6', '#FFA70B', '#FFA700', '#FFA7AA']
+              return {
+                sentiment: data?.sentiment,
+                percentage: `${((data?.count / totalCount) * 100).toFixed(2)}%`,
+                color: (index < colors.length - 1) ? colors[index] : colors[0]
+              }
+            })}
+            topic={utils.getUniqueNamesOfObjectArray(chartSentimentData, 'topic')[0]}
+            handleChangeTopic={(e) => {
+              console.log('Select: ', e.target.value)
+              setRequest(e.target.value)
+            }}
+            topicValue={((request && scrapeRequest) ? String(request) : String(1)) ?? ''}
+            // optionsTopic={[
+            //   {
+            //     value: '1',
+            //     label: '1'
+            //   },
+            //   {
+            //     value: '2',
+            //     label: '2'
+            //   },
+            // ]}
+            optionsTopic={scrapeRequest?.items.map((request: any) => ({
+              value: request?.id,
+              label: `${request?.trending_topic?.topic} - ${request?.id}`
+            }))}
+          />
+        }
         {chartScrapeSentimentData && 
           <SentimentChartTwo 
             series={(chartScrapeSentimentData as any).series}
