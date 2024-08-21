@@ -83,21 +83,21 @@ function App() {
         <Route path="/auth/signup" element={<SignUp />} />
         <Route path="/auth/login" element={<Login />} />
         <Route element={<DefaultLayout />}>
-        <Route index element={<Dashboard />} />
-        {routes.map((routes, index) => {
-          const { path, component: Component } = routes;
-          return (
-            <Route
-              key={index}
-              path={path}
-              element={
-                <Suspense key={index} fallback={<Loader />}>
-                  <Component />
-                </Suspense>
-              }
-            />
-          );
-        })}
+          <Route index element={<Dashboard />} />
+          {routes.map((routes, index) => {
+            const { path, component: Component } = routes;
+            return (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  <Suspense key={index} fallback={<Loader />}>
+                    <Component />
+                  </Suspense>
+                }
+              />
+            );
+          })}
         </Route>
         <Route path="*" element={<Login />} />
       </Routes>
