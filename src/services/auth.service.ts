@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = (import.meta as any).env.VITE_TRENDZ_API_URL || "http://localhost:8090";
-const API_PATH = `${API_URL}/api/auth`;
+const API_PATH = `${API_URL}/auth`;
 
 const register = (username: string, email: string, password: string) => {
   return axios.post(API_PATH + "/signup", {

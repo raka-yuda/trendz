@@ -2,7 +2,7 @@ import axios from "axios";
 import authHeader from "./auth-header";
 
 const API_URL = (import.meta as any).env.VITE_TRENDZ_API_URL || "http://localhost:8090";
-const API_PATH = `${API_URL}/api/test`;
+const API_PATH = `${API_URL}/test`;
 
 const getPublicContent = () => {
   return axios.get(API_PATH + "all");

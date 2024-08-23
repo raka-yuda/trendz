@@ -9,7 +9,7 @@ interface IFetchScrapeRequests {
 }
 
 const API_URL = (import.meta as any).env.VITE_TRENDZ_API_URL || "http://localhost:8090";
-const API_PATH = `${API_URL}/api/scrape-request`;
+const API_PATH = `${API_URL}/scrape-request`;
 
 
 const fetchScrapeRequests = ({page = 1, limit = 10, topicId, status}: IFetchScrapeRequests) => {
