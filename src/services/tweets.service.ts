@@ -12,7 +12,7 @@ interface IFetchTweetsChart {
 }
 
 const API_URL = (import.meta as any).env.VITE_TRENDZ_API_URL || "http://localhost:8090";
-const API_PATH = `${API_URL}/api/tweets`;
+const API_PATH = `${API_URL}/tweets`;
 
 const fetchTweets = ({page = 1, limit = 10}: IFetchTweets) => {
   return axios.get(API_PATH, {
