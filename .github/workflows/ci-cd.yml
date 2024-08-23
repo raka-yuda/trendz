@@ -94,9 +94,11 @@ jobs:
       env:
         HOST: ${{ secrets.HOST }}
         DEPLOY_PATH: /opt/trendz/app
+        VITE_TRENDZ_API_URL: ${{ secrets.VITE_TRENDZ_API_URL }}
       run: |
-
+        echo "VITE_TRENDZ_API_URL=$VITE_TRENDZ_API_URL" >> .env.production
         echo "Starting SCP transfer..."
+        scp .env.production sp-deploy@$HOST:$DEPLOY_PATH || { echo "SCP failed"; exit 1; }
         scp deploy.sh sp-deploy@$HOST:$DEPLOY_PATH || { echo "SCP failed"; exit 1; }
         echo "SCP transfer completed."
 
