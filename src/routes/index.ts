@@ -77,7 +77,7 @@ const coreRoutes = [
   },
   {
     path: '/charts',
-    title: 'charts',
+    title: 'Charts',
     component: Charts,
   },
 ];
