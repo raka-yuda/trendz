@@ -17,7 +17,6 @@ export const fetchTrends = ({page, limit}: ITrends) => (dispatch: Dispatch) => {
     (response) => {
       const trendsData = response?.data?.data
 
-      console.log(trendsData)
       dispatch({
         type: FETCH_TRENDS_SUCCESS,
         payload: trendsData,

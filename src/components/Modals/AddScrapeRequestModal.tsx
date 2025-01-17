@@ -36,7 +36,6 @@ const AddScrapeRequestModal = ({visibility = false, setVisibilityModal, page, di
         query,
       }).then(async () => {
         await dispatch(fetchScrapeRequests({page: page}) as any).then((res) => {
-          console.log('fetchScrapeRequests: ', res)
         });
         toast.success('Success adding scrape request!');
         setVisibilityModal(false);

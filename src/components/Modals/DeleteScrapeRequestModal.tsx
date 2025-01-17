@@ -24,7 +24,6 @@ const DeleteScrapeRequestModal = ({visibility = false, setVisibilityModal, page,
     // topicId
     // query
     // tweetsLimit
-    console.log(`Deleting scrape request with id: ${scrapeRequestId}`)
     // setVisibilityModal(false);
     // const {
     //   requestId,
