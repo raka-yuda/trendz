@@ -15,10 +15,10 @@
 - [Package Used](#package-used)
 
 ## **Preview**
-![list](public/images/preview-page-login.png)
-![list](public/images/preview-page-charts.png)
-![list](public/images/preview-page-scrape-requests.png)
-
+![preview-page-login](public/images/preview-page-login.png "preview-page-login") 
+![preview-page-dashboard](public/images/preview-page-dashboard.png "preview-page-dashboard") 
+![preview-page-scrape-requests](public/images/preview-page-scrape-requests.png "preview-page-scrape-requests")
+![preview-page-charts](public/images/preview-page-charts.png "preview-page-charts") 
 
 ## **How To Run Dev**
 - Run : <code>npm install</code>
